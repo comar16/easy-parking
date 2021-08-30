@@ -96,7 +96,7 @@ Il Database realizzato è composto dalle seguenti tabelle, per il raggiungimento
 ![ER Database Diagram](./EasyParkingDB.png)
 
 
-###Use Case Diagram
+### Use Case Diagram
 Sono stati creati degli Use Case Diagram disponibili in ./UseCaseDiagram/ nei formati .puml e .png. Questi,
 descrivono le funzioni o servizi offerti dal sistema, così come sono percepiti e utilizzati dagli attori che interagiscono col sistema stesso,
 nei seguenti 3 casi d’uso:
@@ -111,7 +111,7 @@ nei seguenti 3 casi d’uso:
 #### Funzionalità amministratore
 ![Use Case D](./UseCaseDiagram/EasyParkingUseCaseAdmin.png)
 
-###Sequence Diagram
+### Sequence Diagram
 Sono stati creati dei Sequence Diagram disponibili in ./SequenceDiagram/ nei formati .puml e .png. Questi, descrivono la successione di operazioni
 e messaggi di risposta tra i vari componenti dell’intero sistema, nei seguenti 3 casi
 d’uso:
