@@ -1,0 +1,43 @@
+@startuml
+actor User
+boundary RestUI #DodgerBlue
+participant JWTAuthentication #DodgerBlue
+participant UserController #MediumSeaGreen
+participant UserService #Salmon
+participant PayPalService #Salmon
+participant PaymentInfoRepository #MediumSeaGreen
+participant FineRepository #MediumSeaGreen
+database Database #Salmon
+
+group Pay Fine
+User -> RestUI : POST ../api/easyparking/pay-fine/{fineId}?currency={currency}
+RestUI -> JWTAuthentication : JWT
+JWTAuthentication -> RestUI : UserData
+RestUI -> UserController : payFine(fineId, currency)
+
+UserController -> UserService : payFine(fineId, currency)
+UserService -> PayPalService : createPayment (params)
+group Payment Failure
+PayPalService -> UserService : Payment (Failure)
+UserService -> UserController : Payment (Failure)
+UserController -> RestUI : Payment (Failure)
+RestUI -> User : 400 Bad Request - HTML Response (Payment Failure)
+end
+PayPalService -> UserService : Payment (Success)
+UserService -> UserController : Payment (Success)
+UserController -> UserService : successFinePayment(paymentId, payerId)
+UserService -> PayPalService : executePayment (params)
+PayPalService ->  UserService : Payment (approved)
+UserService -> PaymentInfoRepository : save (PaymentInfo)
+PaymentInfoRepository -> Database : connection and add data
+Database -> PaymentInfoRepository : PaymentInfo
+PaymentInfoRepository -> UserService : PaymentInfo
+UserService -> FineRepository : save (Fine)
+FineRepository -> Database : connection and update data
+Database -> FineRepository : Fine
+FineRepository -> UserService : Fine
+UserService -> UserController : PaymentInfo
+UserController -> RestUI : PaymentInfo
+RestUI -> User : 200 OK - HTML Response (Payment Success)
+end
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+actor User
+boundary RestUI #DodgerBlue
+participant JWTAuthentication #DodgerBlue
+participant UserController #MediumSeaGreen
+participant UserService #Salmon
+participant VehicleRepository #MediumSeaGreen
+database Database #Salmon
+
+group Add vehicle
+User -> RestUI : POST ../api/easyparking/add-vehicle/?mvId={mvId}&licensePlate={licensePlate}
+RestUI -> JWTAuthentication : JWT
+JWTAuthentication -> RestUI : UserData
+RestUI -> UserController : createVehicle(mvId, licensePlate)
+
+UserController -> UserService : createVehicle(mvId, licensePlate)
+
+UserService -> VehicleRepository : save(Vehicle)
+VehicleRepository -> Database : connection and add data
+Database -> VehicleRepository : Vehicle
+VehicleRepository -> UserService : Vehicle
+UserService -> UserController : Vehicle
+UserController -> RestUI : Vehicle
+RestUI -> User : 200 OK - HTML Response (Vehicle)
+end
+@enduml

@@ -1,0 +1,26 @@
+@startuml
+actor User
+boundary RestUI #DodgerBlue
+participant JWTAuthentication #DodgerBlue
+participant UserController #MediumSeaGreen
+participant UserService #Salmon
+participant UserRepository #MediumSeaGreen
+database Database #Salmon
+
+group User/Admin Login
+User -> RestUI : POST ../api/easyparking/login/?username={username}&password={password}
+RestUI -> UserController : login(username, password)
+
+UserController -> UserService :login(username, password)
+
+UserService -> UserRepository : GetUserByUsernameAndRole
+UserRepository -> Database : connection and retrieve data
+Database -> UserRepository : User
+UserRepository -> UserService : User
+UserService -> JWTAuthentication : User
+JWTAuthentication -> UserService : JWT
+UserService -> UserController : JWT
+UserController -> RestUI : JWT
+RestUI -> User : 200 OK - HTML Response (User)
+end
+@enduml

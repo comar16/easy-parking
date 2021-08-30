@@ -1,0 +1,44 @@
+@startuml
+left to right direction
+actor "User"
+rectangle System{
+User -> (Login user)
+User --> (Change Password)
+(Change Password) ..> (Login user): <<include>>
+User --> (Display profile info)
+(Display profile info) ..> (Login user): <<include>>
+}
+
+rectangle ParkingArea{
+User -> (Display Parking Areas filtered)
+(Display Parking Areas filtered) ..> (Login user): <<include>>
+User -> (Upload License)
+(Upload License) ..> (Login user): <<include>>
+User -> (Add Vehicle)
+(Add Vehicle) ..> (Login user): <<include>>
+User -> (Display vehicles)
+(Display vehicles) ..> (Login user): <<include>>
+User -> (Display model vehicles)
+(Display model vehicles) ..> (Login user): <<include>>
+(Change model vehicle) ..> (Add Vehicle): <<include>>
+User -> (Change model vehicle)
+User ->(Display Parking Area Color)
+(Display Parking Area Color) ..> (Login user): <<include>>
+User ->(Display Parking Area Type and Dimension)
+(Display Parking Area Type and Dimension) ..> (Login user): <<include>>
+(Change model vehicle) ..> (Login user): <<include>>
+}
+
+rectangle Prenotation{
+User -> (Display tickets)
+User -> (Pay tickets)
+User -> (Display fines paid/not paid)
+User -> (Pay fines)
+(Pay tickets) ..> (Login user): <<include>>
+(Pay fines) ..> (Login user): <<include>>
+(Pay tickets) ..> (Upload License): <<include>>
+(Pay fines) ..> (Upload License): <<include>>
+(Display tickets) ..> (Login user): <<include>>
+(Display fines paid/not paid) ..> (Login user): <<include>>
+}
+@enduml

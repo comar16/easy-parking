@@ -1,0 +1,15 @@
+@startuml
+left to right direction
+actor "Public"
+rectangle {
+Public -> (Login user)
+Public --> (Reset user)
+Public --> (Reset admin)
+Public -->  (Sign up user)
+Public -> (Login admin)
+(Reset user) ..> (Sign up user) : <<include>>
+(Login user) ..> (Sign up user) : <<include>>
+}
+@enduml
+
+

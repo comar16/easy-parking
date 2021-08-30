@@ -1,0 +1,34 @@
+@startuml
+left to right direction
+actor "Admin"
+rectangle System{
+Admin -> (Login admin)
+Admin --> (Display profile info)
+(Display profile info) ..> (Login admin): <<include>>
+}
+rectangle ParkingArea{
+Admin -> (Upload Police Card)
+(Upload Police Card) ..> (Login admin): <<include>>
+Admin -> (Display/Add/Update/Delete Parking Area)
+(Display/Add/Update/Delete Parking Area) ..> (Upload Police Card): <<include>>
+(Display/Add/Update/Delete Parking Area) ..> (Login admin): <<include>>
+Admin -> (Display/Add/Update/Delete Parking Area Color)
+(Display/Add/Update/Delete Parking Area Color) ..> (Upload Police Card): <<include>>
+(Display/Add/Update/Delete Parking Area Color) ..> (Login admin): <<include>>
+Admin -> (Display/Add/Update/Delete Parking Area Type and Dimension)
+(Display/Add/Update/Delete Parking Area Type and Dimension) ..> (Upload Police Card): <<include>>
+(Display/Add/Update/Delete Parking Area Type and Dimension) ..> (Login admin): <<include>>
+Admin ->(Display list of user/admin)
+(Display list of user/admin) ..> (Login admin): <<include>>
+
+}
+rectangle Finance{
+Admin ->(Create fine)
+(Create fine) ..> (Upload Police Card): <<include>>
+(Create fine) ..> (Login admin): <<include>>
+Admin ->(Update fine total price)
+(Update fine total price) ..> (Create fine): <<include>>
+(Update fine total price) ..> (Upload Police Card): <<include>>
+(Update fine total price) ..> (Login admin): <<include>>
+}
+@enduml
