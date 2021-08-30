@@ -52,4 +52,7 @@ public class PoliceCard implements Serializable {
         this.retroPhotoPCName = retroPhotoPCName;
     }
 
+    @PrePersist
+    public void prePersist() {this.dateUpload = LocalDateTime.now().plusHours(2);}
+
 }

@@ -4,13 +4,16 @@ import core.easyparking.polimi.entity.*;
 import core.easyparking.polimi.repository.*;
 import core.easyparking.polimi.service.AdminService;
 import core.easyparking.polimi.service.PublicService;
-import core.easyparking.polimi.utils.object.request.ParkingAreaRequest;
-import core.easyparking.polimi.utils.object.responce.*;
+import core.easyparking.polimi.utils.object.responce.GetAdminResponce;
+import core.easyparking.polimi.utils.object.responce.GetParkingAreaColorResponce;
+import core.easyparking.polimi.utils.object.responce.GetParkingAreaTypeDimensionResponce;
 import core.easyparking.polimi.utils.object.staticvalues.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,9 +25,6 @@ import org.springframework.http.*;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,13 +49,7 @@ public class AdminApiControllerTest {
 	@Autowired
 	private AdminRepository adminRepository;
 	@Autowired
-	private FineRepository fineRepository;
-	@Autowired
-	private LicenseRepository licenseRepository;
-	@Autowired
 	private AccountRepository accountRepository;
-	@Autowired
-	private ModelVehicleRepository modelVehicleRepository;
 	@Autowired
 	private ParkingAreaColorRepository parkingAreaColorRepository;
 	@Autowired
@@ -64,28 +58,18 @@ public class AdminApiControllerTest {
 	private ParkingAreaTypeDimensionRepository parkingAreaTypeDimensionRepository;
 	@Autowired
 	private UserRepository userRepository;
-	@Autowired
-	private VehicleRepository vehicleRepository;
-	@Autowired
-	private TicketRepository ticketRepository;
 
 	@MockBean private AdminService adminService;
 
 	private final HttpHeaders headers = new HttpHeaders();
 	public Admin admin;
-	public Driver user;
 	ParkingAreaColor pac = new ParkingAreaColor(Color.Blue,1.60,5.00,15.99, 45.70);
 	ParkingAreaTypeDimension patd = new ParkingAreaTypeDimension(Type.Spina, 2.30, 4.90);
 	ParkingArea pa = new ParkingArea(pac.getPacId(), patd.getPatdId(), Functionality.Car, 20.87, 34.56, ParkingAreaStatus.Free);
-	//Vehicle vehicle = new Vehicle(1L, 1L, "AS2334RT");
-  //Fine fine = new Fine(1L, 1L, null, vehicle.getVehicleId(), "Tow away zone", LocalDateTime.now(), Integer.valueOf(0), 89.90);
 
   @BeforeEach
 	public void beforeEach() {
 
-		//vehicleRepository.deleteAll();
-		//ticketRepository.deleteAll();
-		//fineRepository.deleteAll();
 		userRepository.deleteAll();
 		adminRepository.deleteAll();
 		accountRepository.deleteAll();
@@ -108,8 +92,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(1)
-	public void test1_getProfile() {
+	public void getProfile() {
 		Admin admin = adminRepository.findAll().get(0);
 		given(adminService.getProfile()).willReturn(new GetAdminResponce(admin));
 		ResponseEntity<Admin> response200 =
@@ -120,8 +103,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(2)
-	public void test2_getAllUsers() {
+	public void getAllUsers() {
 		ParameterizedTypeReference<List<Driver>> type = new ParameterizedTypeReference<>() {};
 		ResponseEntity<List<Driver>> response200 =
 				restTemplate.exchange(
@@ -131,8 +113,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(3)
-	public void test3_getAllAdmin() {
+	public void getAllAdmin() {
 		ParameterizedTypeReference<List<Admin>> type = new ParameterizedTypeReference<>() {};
 		ResponseEntity<List<Admin>> response200 =
 				restTemplate.exchange(
@@ -142,8 +123,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(4)
-	public void test4_getAllParkingAreaColor() {
+	public void getAllParkingAreaColor() {
 		ParameterizedTypeReference<List<ParkingAreaColor>> type = new ParameterizedTypeReference<>() {};
 		ResponseEntity<List<ParkingAreaColor>> response200 =
 				restTemplate.exchange(
@@ -153,8 +133,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(5)
-	public void test5_createParkingAreaColor() {
+	public void createParkingAreaColor() {
 		GetParkingAreaColorResponce pac1 = new GetParkingAreaColorResponce(Color.Blue,1.60,5.00,15.99, 45.70);
 		given(adminService.createParkingAreaColor(pac1)).willReturn(pac1);
 
@@ -167,8 +146,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(6)
-	public void test6_updateParkingAreaColor() {
+	public void updateParkingAreaColor() {
 		GetParkingAreaColorResponce pac1 = new GetParkingAreaColorResponce(Color.Blue,1.60,5.00,15.99, 45.70);
 		given(adminService.updateParkingAreaColor(pac.getPacId(), pac1)).willReturn(pac1);
 		ResponseEntity<ParkingAreaColor> response =
@@ -179,8 +157,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(7)
-	public void test7_updateHourlyPricePAC() {
+	public void updateHourlyPricePAC() {
 		ParkingAreaColor pac1 = new ParkingAreaColor(Color.Blue,1.60,5.00,15.99, 45.70);
 		given(adminService.updateHourlyPricePAC(any(), any())).willReturn(new GetParkingAreaColorResponce(pac1));
 
@@ -193,8 +170,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(8)
-	public void test8_updateDailyPricePAC() {
+	public void updateDailyPricePAC() {
 		ParkingAreaColor pac1 = new ParkingAreaColor(Color.Blue,1.60,5.00,15.99, 45.70);
 		given(adminService.updateDailyPricePAC(any(), any())).willReturn(new GetParkingAreaColorResponce(pac1));
 		ResponseEntity<ParkingAreaColor> response =
@@ -206,8 +182,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(9)
-	public void test9_updateWeeklyPricePAC() {
+	public void updateWeeklyPricePAC() {
 		ParkingAreaColor pac1 = new ParkingAreaColor(Color.Blue,1.60,5.00,15.99, 45.70);
 		given(adminService.updateWeeklyPricePAC(any(), any())).willReturn(new GetParkingAreaColorResponce(pac1));
 		ResponseEntity<ParkingAreaColor> response =
@@ -219,8 +194,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(10)
-	public void test10_updateMonthlyPricePAC() {
+	public void updateMonthlyPricePAC() {
 		ParkingAreaColor pac1 = new ParkingAreaColor(Color.Blue,1.60,5.00,15.99, 45.70);
 		given(adminService.updateMonthlyPricePAC(any(), any())).willReturn(new GetParkingAreaColorResponce(pac1));
 		ResponseEntity<ParkingAreaColor> response =
@@ -232,8 +206,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(11)
-	public void test11_setFreePAC() {
+	public void setFreePAC() {
 		given(adminService.setFreePAC(any())).willReturn(new GetParkingAreaColorResponce());
 		ResponseEntity<ParkingAreaColor> response =
 				restTemplate.exchange(
@@ -244,8 +217,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(12)
-	public void test12_getAllParkingAreaTypeDimension() {
+	public void getAllParkingAreaTypeDimension() {
 		ParameterizedTypeReference<List<ParkingAreaTypeDimension>> type = new ParameterizedTypeReference<>() {};
 		ResponseEntity<List<ParkingAreaTypeDimension>> response200 =
 				restTemplate.exchange(
@@ -255,8 +227,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(13)
-	public void test13_createParkingAreaTypeDimensions() {
+	public void createParkingAreaTypeDimensions() {
 		GetParkingAreaTypeDimensionResponce patd1 = new GetParkingAreaTypeDimensionResponce(Type.Spina, 2.30, 4.90);
 		given(adminService.createParkingAreaTypeDimensions(any())).willReturn(patd1);
 		ResponseEntity<ParkingAreaTypeDimension> response =
@@ -268,8 +239,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(14)
-	public void test14_updateParkingAreaTypeDimension() {
+	public void updateParkingAreaTypeDimension() {
 		GetParkingAreaTypeDimensionResponce patd1 = new GetParkingAreaTypeDimensionResponce(Type.Spina, 2.30, 4.90);
 		given(adminService.updateParkingAreaTypeDimension(any(),any())).willReturn(patd1);
 		ResponseEntity<ParkingAreaTypeDimension> response =
@@ -281,8 +251,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(15)
-	public void test15_getAllParkingArea() {
+	public void getAllParkingArea() {
 		ParameterizedTypeReference<List<ParkingArea>> type = new ParameterizedTypeReference<>() {};
 		ResponseEntity<List<ParkingArea>> response200 =
 				restTemplate.exchange(
@@ -292,8 +261,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(16)
-	public void test16_createParkingArea() {
+	public void createParkingArea() {
 		given(adminService.createParkingArea(any())).willReturn(pa);
 		ResponseEntity<ParkingArea> response =
 				restTemplate.exchange(
@@ -304,8 +272,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(17)
-	public void test17_updateParkingArea() {
+	public void updateParkingArea() {
 		given(adminService.updateParkingArea(any(), any())).willReturn(pa);
 		ResponseEntity<ParkingArea> response =
 				restTemplate.exchange(
@@ -316,8 +283,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(18)
-	public void test18_setPADamaged() {
+	public void setPADamaged() {
 		given(adminService.setPADamaged(any())).willReturn(pa);
 		ResponseEntity<ParkingArea> response =
 				restTemplate.exchange(
@@ -328,8 +294,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(19)
-	public void test19_deleteParkingArea() {
+	public void deleteParkingArea() {
 		ResponseEntity<String> response =
 				restTemplate.exchange(
 						"/api/easyparking/admin/parking-area/{paId}", HttpMethod.DELETE, new HttpEntity<>(null, headers),
@@ -338,8 +303,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(20)
-	public void test20_deleteParkingAreaTypeDimension() {
+	public void deleteParkingAreaTypeDimension() {
 		ResponseEntity<String> response =
 				restTemplate.exchange(
 						"/api/easyparking/admin/parking-area-type-dimension/{patdId}", HttpMethod.DELETE, new HttpEntity<>(null, headers),
@@ -348,8 +312,7 @@ public class AdminApiControllerTest {
 	}
 
 	@Test
-	@Order(21)
-	public void test21_deleteParkingAreaColor() {
+	public void deleteParkingAreaColor() {
 		ResponseEntity<String> response =
 				restTemplate.exchange(
 						"/api/easyparking/admin/parking-area-color/{pacId}", HttpMethod.DELETE, new HttpEntity<>(null, headers),

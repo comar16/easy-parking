@@ -17,7 +17,7 @@ adeguato posteggio per il proprio veicolo, in grado di soddisfare meglio le sue 
 i tempi, nonché, grazie al sostegno della digitalizzazione, si presta come valido aiuto per le guardie
 municipali incaricate della conduzione del traffico urbano.
 
-### Funzionalità
+### Analisi dei requisiti e funzionalità
 Le funzionalità che si pone si suddividono in 3 categorie:
  - _**Pubbliche**_
  - _**Utente**_
@@ -52,6 +52,8 @@ Le funzionalità _**utente**_ comprendono:
  - Pagamento di eventuali multe
  
 Le funzionalità _**amministratore**_ (Membro della Polizia Locale) comprendono:
+  - Caricamento d'immagini del proprio tesserino
+  - Download delle immagini del proprio tesserino
   - Inserimento/aggiornamento/rimozione di una colorazione di strisce
   - Inserimento/aggiornamento/rimozione di un'area di sosta
   - Inserimento/aggiornamento/rimozione di una nuova tariffa (oraria/giornaliera/settimanale/mensile)
@@ -65,20 +67,14 @@ Le funzionalità _**amministratore**_ (Membro della Polizia Locale) comprendono:
     - Tutte le aree di sosta
     - Tutti le colorazioni di strisce delle aree di sosta
     - Tutti i tipi e le dimensioni delle aree di sosta
-    
-### Struttura del progetto
- - Linguaggio di programmazione: Java
- - Framework: Spring Boot
- - Realizzazione dei package seguendo il modello:
-   - configuration (configurazioni d'interfaccia con DataBase, MailTrap e PayPal)
-   - controller (gestione delle richieste, chiamando i metodi dai vari services)
-   - entity (vero e proprio mapping delle tabelle del DataBase)
-   - repository (gestione delle query)
-   - security (gestione dell'autenticazione)
-   - service (insieme di metodi pronti a svolgere operazioni)
-   - utils (modelli specifici di request, response e regex)   
-   
-###Schema ER EasyParking database
+
+### API e Documentazione Swagger
+
+Sono state sviluppate svariate API, affinché tutte le funzionalità fossero implementate.
+La documentazione delle stesse si trova al seguente link: [Documentazione EasyParking Swagger](https://app.swaggerhub.com/apis/comar_16/EasyParking/1.0.0)
+
+
+### Schema ER DataBase
 Il servizio di database scelto per EasyParking è MySql, che permette di gestire un database relazionale.
 Il Database realizzato è composto dalle seguenti tabelle, per il raggiungimento di determinati obiettivi:
 
@@ -99,33 +95,7 @@ Il Database realizzato è composto dalle seguenti tabelle, per il raggiungimento
 
 ![ER Database Diagram](./EasyParkingDB.png)
 
-### API e Documentazione Swagger
 
-Sono state sviluppate svariate API, affinché tutte le funzionalità fossero implementate.
-La documentazione del progetto si trova al seguente link: [Documentazione EasyParking Swagger](https://app.swaggerhub.com/apis/comar_16/EasyParking/1.0.0)
-
-
-### Testing 
-
-I tests implementati si suddividono in:
-
-* Test per i Service: per verificate la correttezza delle operazioni svolte dai vari metodi
-    * Test per le operazioni pubbliche
-    * Test per le operazioni dell'utente
-    * Test per le operazioni dell'amministratore
-* Test per i Controllers: per verificare la correttezza degli end points e dello status code restituito
-    * Test per il Controller pubblico
-    * Test per il Controller utente
-    * Test per il Controller amministratore
-
-### Ipotetici miglioramenti futuri
-
-Il sistema server side attualmente non predispone di:
- - un servizio di chat tra clienti e assistenza
- - una gestione di suddivisione tariffaria Comunale
- - la creazione di nuovi amministratori (membri della polizia locale) approvati dagli stessi 
-
-Queste migliorie potrebbero essere apportate per avere un’esperienza utente migliore.
 ###Use Case Diagram
 Sono stati creati degli Use Case Diagram disponibili in ./UseCaseDiagram/ nei formati .puml e .png. Questi,
 descrivono le funzioni o servizi offerti dal sistema, così come sono percepiti e utilizzati dagli attori che interagiscono col sistema stesso,
@@ -155,3 +125,39 @@ d’uso:
 #### Pagamento multa
 ![Use Case D](./SequenceDiagram/EasyParkingSequencePaymentFine.png)
 
+### Struttura del codice
+- Linguaggio di programmazione: Java
+- Framework: Spring Boot
+- Realizzazione dei package seguendo il modello:
+    - configuration (configurazioni d'interfaccia con DataBase, MailTrap e PayPal)
+    - controller (gestione delle richieste, chiamando i metodi dai vari services)
+    - entity (vero e proprio mapping delle tabelle del DataBase)
+    - repository (gestione delle query)
+    - security (gestione dell'autenticazione)
+    - service (insieme di metodi pronti a svolgere operazioni)
+    - utils (modelli specifici di request, response e regex)
+
+### Piano di Testing
+
+I tests implementati si suddividono in:
+
+* Test per i Service: per verificate la correttezza delle operazioni svolte dai vari metodi
+    * Test per le operazioni pubbliche
+    * Test per le operazioni dell'utente
+    * Test per le operazioni dell'amministratore
+* Test per i Controllers: per verificare la correttezza degli end points e dello status code restituito
+    * Test per il Controller pubblico
+    * Test per il Controller utente
+    * Test per il Controller amministratore
+  
+#### Rapporto sull'andamento dei test
+
+I log del successo dei test sono visualizzabili al seguente link: [Tests Result EasyParking](./TestResults-EasyParking.html)
+### Ipotetici miglioramenti futuri
+
+Il sistema server side attualmente non predispone di:
+- un servizio di chat tra clienti e assistenza
+- una gestione di suddivisione tariffaria Comunale
+- la creazione di nuovi amministratori (membri della polizia locale) approvati dagli stessi
+
+Queste migliorie potrebbero essere apportate per avere un’esperienza utente migliore.

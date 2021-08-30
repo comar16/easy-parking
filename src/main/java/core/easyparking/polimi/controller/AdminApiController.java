@@ -15,9 +15,12 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
@@ -303,4 +306,39 @@ public class AdminApiController {
 			@ApiResponse(responseCode = "403", description = "Authentication Failure", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
 	})
 	List<ParkingArea> getBusyPA() {return adminService.getBusyPA();}
+
+	@PostMapping(path="/upload-police-card", produces = "application/json")
+	@Operation(summary = "Allows admin to upload police card photos to get 'Approved' account")
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", description = "Successful Operation"),
+			@ApiResponse(responseCode = "400", description = "Operation failed", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "403", description = "Authentication Failure", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "417", description = "Expectation Failed. Couldn't upload the file.", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+	})
+	ResponseEntity<ErrorResponse> uploadLicense (@RequestParam("frontPhoto") MultipartFile frontPhoto, @RequestParam("retroPhoto") MultipartFile retroPhoto) throws IOException {
+		return adminService.uploadPoliceCard(frontPhoto, retroPhoto);
+	}
+
+	@GetMapping(path="/download-policecard-f-p/{id}", produces = "application/json")
+	@Operation(summary = "Allows admin to download police card photos to verify if he uploaded correct files")
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", description = "Successful Operation"),
+			@ApiResponse(responseCode = "400", description = "Operation failed", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "403", description = "Authentication Failure", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+	})
+	ResponseEntity<byte[]> downloadPoliceCardFP(@PathVariable Long id){
+		return adminService.downloadPoliceCardFP(id);
+	}
+
+	@GetMapping(path="/download-policecard-r-p/{id}", produces = "application/json")
+	@Operation(summary = "Allows user to download police card photos to verify if he uploaded correct files")
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", description = "Successful Operation"),
+			@ApiResponse(responseCode = "400", description = "Operation failed", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+			@ApiResponse(responseCode = "403", description = "Authentication Failure", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+	})
+	ResponseEntity<byte[]> downloadPoliceCardRP(@PathVariable Long id){
+		return adminService.downloadPoliceCardRP(id);
+	}
+
 }

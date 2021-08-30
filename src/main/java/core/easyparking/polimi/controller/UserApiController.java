@@ -181,7 +181,7 @@ public class UserApiController {
 	}
 
 	@PostMapping(path="/upload-license", produces = "application/json")
-	@Operation(summary = "Allows user to upload license photos and number to get 'Approved' account")
+	@Operation(summary = "Allows user to upload license photos to get 'Approved' account")
 	@ApiResponses({
 			@ApiResponse(responseCode = "200", description = "Successful Operation"),
 			@ApiResponse(responseCode = "400", description = "Operation failed", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
@@ -192,7 +192,7 @@ public class UserApiController {
 		return userService.uploadLicense(frontPhoto, retroPhoto);
 	}
 
-	@GetMapping(path="/download-licenseFP/{id}", produces = "application/json")
+	@GetMapping(path="/download-license-f-p/{id}", produces = "application/json")
 	@Operation(summary = "Allows user to download license photos to verify if he uploaded correct files")
 	@ApiResponses({
 			@ApiResponse(responseCode = "200", description = "Successful Operation"),
@@ -203,7 +203,7 @@ public class UserApiController {
 		return userService.downloadLicenseFP(id);
 	}
 
-	@GetMapping(path="/download-licenseRP/{id}", produces = "application/json")
+	@GetMapping(path="/download-license-r-p/{id}", produces = "application/json")
 	@Operation(summary = "Allows user to download license photos to verify if he uploaded correct files")
 	@ApiResponses({
 			@ApiResponse(responseCode = "200", description = "Successful Operation"),

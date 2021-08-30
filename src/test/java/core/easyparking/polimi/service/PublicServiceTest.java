@@ -1,6 +1,5 @@
 package core.easyparking.polimi.service;
 
-import core.easyparking.polimi.configuration.mail.CustomMailSender;
 import core.easyparking.polimi.entity.Account;
 import core.easyparking.polimi.entity.Admin;
 import core.easyparking.polimi.entity.Driver;
@@ -18,16 +17,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
 import javax.transaction.Transactional;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
@@ -48,8 +48,6 @@ public class PublicServiceTest {
 	@Autowired
 	private AdminRepository adminRepository;
 
-	@MockBean
-	private CustomMailSender customMailSender;
 
 	private final String userMail = "userPublicService@mail.com";
 	private final String adminMail = "adminPublicService@mail.com";

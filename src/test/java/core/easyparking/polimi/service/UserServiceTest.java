@@ -2,14 +2,10 @@ package core.easyparking.polimi.service;
 
 import core.easyparking.polimi.entity.*;
 import core.easyparking.polimi.repository.*;
-import core.easyparking.polimi.service.jwt.JWTAuthenticationService;
-import core.easyparking.polimi.service.jwt.JWTService;
 import core.easyparking.polimi.utils.object.request.GetParkingAreaRequest;
-import core.easyparking.polimi.utils.object.request.ParkingAreaRequest;
 import core.easyparking.polimi.utils.object.responce.*;
 import core.easyparking.polimi.utils.object.staticvalues.*;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -27,7 +22,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -44,8 +38,6 @@ public class UserServiceTest {
     private AdminRepository adminRepository;
     @Autowired
     private FineRepository fineRepository;
-    @Autowired
-    private LicenseRepository licenseRepository;
     @Autowired
     private AccountRepository accountRepository;
     @Autowired
@@ -66,17 +58,11 @@ public class UserServiceTest {
     private TicketRepository ticketRepository;
     @Autowired
     private UserService userService;
-    @Autowired
-    private JWTAuthenticationService authenticationService;
-    @Autowired
-    private JWTService jwtService;
 
-
-    private Admin admin;
+    protected Admin admin;
     private Driver user;
-    private final String adminUsername = "admintestservice@mail.com";
+    protected final String adminUsername = "admintestservice@mail.com";
     private final String defaultPasswordSha3 = "363999f7918bb84260f481cceaed396fb046e8dc25750c5c3ae0e8088ae17b22";
-    private final LocalDateTime now = LocalDateTime.now().withNano(0);
     ParkingAreaColor pac = new ParkingAreaColor(Color.Blue,1.60,5.00,15.99, 45.70);
     ParkingAreaTypeDimension patd = new ParkingAreaTypeDimension(Type.Nastro, 12.20, 11.30);
     ParkingArea pa = new ParkingArea(1L, 1L, Functionality.Car, 20.87, 34.56, ParkingAreaStatus.Free);
@@ -125,27 +111,6 @@ public class UserServiceTest {
         GetUserResponce test = new GetUserResponce(userTest.getName(), userTest.getSurname(), userTest.getLicenseId(), userTest.getStatus());
         assertTrue(EqualsBuilder.reflectionEquals(test,result));
     }
-/*
-    @Test
-    @WithMockUser(username = "userservicetest@mail.com", password = defaultPasswordSha3, authorities = {"User"})
-    public void changePassword() {
-        String test = jwtService.create(Role.User, user.getAccount().getUsername(), "TestPassword122");
-        System.out.println("TEST = " + test);
-        System.out.println("User get = " + user.getAccount().getPassword());
-        String result = userService.changePassword("TestPassword123", "TestPassword122");
-        System.out.println("RESULT = " + result);
-        assertTrue(EqualsBuilder.reflectionEquals(test,result));
-
-        user.getAccount().setPassword(DigestUtils.sha3_256Hex("TestPassword122"));
-        Driver userToTest = userRepository.save(user);
-        System.out.println("SONO QUA = " + userToTest);
-        Driver userToGet = userRepository.findById(user.getUserId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid adminId"));
-        System.out.println("SONO QUA = " + userToGet);
-        assertTrue(DigestUtils.sha3_256Hex("TestPassword122").equals(userToGet.getAccount().getPassword()));
-
-    }
- */
 
     @Test
     @WithMockUser(username = "userservicetest@mail.com", password = defaultPasswordSha3, authorities = {"User"})
@@ -298,7 +263,7 @@ public class UserServiceTest {
         vehicle.setUserId(user.getUserId());
         vehicle.setModelVehicle(modelVehicleRepository.findByMvId(mv1.getMvId()));
         PaymentInfo pi = paymentInfoRepository.save(new PaymentInfo());
-        Ticket ticket = ticketRepository.save(new Ticket(user.getUserId(), pa.getPaId(), pi.getPaymentId(), vehicle.getVehicleId(), LocalDateTime.now().plusDays(15), Double.valueOf(150.60)));
+        Ticket ticket = ticketRepository.save(new Ticket(user.getUserId(), pa.getPaId(), pi.getPaymentId(), vehicle.getVehicleId(), LocalDateTime.now().plusDays(15), 150.60));
         List<Ticket> ticketToGet = ticketRepository.findByUserIdAndPIdNotNull(user.getUserId());
         ticket.setVehicle(vehicle);
         assertTrue(ticketRepository.findById(ticketToGet.get(0).getTicketId()).isPresent());

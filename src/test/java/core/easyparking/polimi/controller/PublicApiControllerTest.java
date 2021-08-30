@@ -29,7 +29,7 @@ public class PublicApiControllerTest {
 	@MockBean private PublicService publicService;
 
 	private final String userMail = "userPublicController@mail.com";
-	private final String adminMail = "adminPublicController@mail.com";
+	protected final String adminMail = "adminPublicController@mail.com";
 	private final String defaultPassword = "TestPassword123";
 
 	@Test
@@ -87,15 +87,4 @@ public class PublicApiControllerTest {
 
 		assertEquals(HttpStatus.OK, response.getStatusCode());
 	}
-/*
-	@Test
-	void resetAdmin() {
-		ResponseEntity<String> response =
-				restTemplate.exchange(
-						"/api/easyparking/reset/admin?username={username}", HttpMethod.POST, null,
-						String.class, adminMail);
-
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-	}
-	*/
 }

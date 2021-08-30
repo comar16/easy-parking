@@ -1,5 +1,6 @@
 package core.easyparking.polimi.service;
 
+import core.easyparking.polimi.configuration.error.ErrorResponse;
 import core.easyparking.polimi.entity.*;
 import core.easyparking.polimi.repository.*;
 import core.easyparking.polimi.service.jwt.JWTService;
@@ -11,13 +12,20 @@ import core.easyparking.polimi.utils.object.responce.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +48,7 @@ public class AdminService {
 	private final ParkingAreaRepository parkingAreaRepository;
 	private final FineRepository fineRepository;
 	private final UserService userService;
+	private final PoliceCardRepository policeCardRepository;
 
 
 
@@ -570,4 +579,52 @@ public class AdminService {
 		}
 		return parkingAreaList;
 	}
+
+	/**
+	 * Allows admin to upload police card images
+	 * @param frontPhoto: front image to upload
+	 * @param retroPhoto: retro image to upload
+	 * @return a ResponseEntity<ErrorResponse>: with a correct status
+	 */
+	public ResponseEntity<ErrorResponse> uploadPoliceCard(MultipartFile frontPhoto, MultipartFile retroPhoto) throws IOException {
+
+		String frontPhotoName = StringUtils.cleanPath(frontPhoto.getOriginalFilename());
+		String retroPhotoName = StringUtils.cleanPath(retroPhoto.getOriginalFilename());
+		PoliceCard policeCard = policeCardRepository.save(new PoliceCard(frontPhoto.getBytes(), frontPhotoName, retroPhoto.getBytes(), retroPhotoName));
+		Admin admin = adminRepository.findById(getAdmin().getAdminId())
+				.orElseThrow(() -> new IllegalArgumentException("Invalid adminId"));
+		admin.setPcId(policeCard.getPcId());
+		adminRepository.save(admin);
+		return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(200, "Uploaded successfully files : " + frontPhotoName +  " and " + retroPhotoName));
+	}
+	/**
+	 * Allows admin to download front police crad image
+	 * @param id: the unique identifier of image
+	 * @return a ResponseEntity<byte[]>: with image
+	 */
+	public ResponseEntity<byte[]> downloadPoliceCardFP(Long id) {
+		if (policeCardRepository.findById(id).isPresent()) {
+			PoliceCard policeCard = policeCardRepository.findById(id).get();
+			return ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + policeCard.getFrontPhotoPCName() + "\"")
+					.body(policeCard.getFrontPhotoPCdata());
+		} else return ResponseEntity.badRequest()
+				.body(null);
+	}
+
+	/**
+	 * Allows user to download retro police card image
+	 * @param id: the unique identifier of image
+	 * @return a ResponseEntity<byte[]>: with image
+	 */
+	public ResponseEntity<byte[]> downloadPoliceCardRP(Long id) {
+		if (policeCardRepository.findById(id).isPresent()) {
+			PoliceCard policeCard = policeCardRepository.findById(id).get();
+			return ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + policeCard.getRetroPhotoPCName() + "\"")
+					.body(policeCard.getRetroPhotoPCdata());
+		} else return ResponseEntity.badRequest()
+				.body(null);
+	}
+
 }

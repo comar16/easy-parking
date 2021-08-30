@@ -38,13 +38,7 @@ public class AdminServiceTest {
     @Autowired
     private AdminRepository adminRepository;
     @Autowired
-    private FineRepository fineRepository;
-    @Autowired
-    private LicenseRepository licenseRepository;
-    @Autowired
     private AccountRepository accountRepository;
-    @Autowired
-    private ModelVehicleRepository modelVehicleRepository;
     @Autowired
     private ParkingAreaColorRepository parkingAreaColorRepository;
     @Autowired
@@ -54,8 +48,6 @@ public class AdminServiceTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private VehicleRepository vehicleRepository;
-    @Autowired
     private AdminService adminService;
 
 
@@ -63,16 +55,10 @@ public class AdminServiceTest {
     private Driver user;
     private final String adminUsername = "admintestservice@mail.com";
     private final String defaultPasswordSha3 = "363999f7918bb84260f481cceaed396fb046e8dc25750c5c3ae0e8088ae17b22";
-    private final LocalDateTime now = LocalDateTime.now().withNano(0);
     ParkingAreaColor pac = new ParkingAreaColor(Color.Blue,1.60,5.00,15.99, 45.70);
     ParkingAreaTypeDimension patd = new ParkingAreaTypeDimension(Type.Nastro, 12.20, 11.30);
     ParkingArea pa = new ParkingArea(pac.getPacId(), patd.getPatdId(), Functionality.Car, 20.87, 34.56, ParkingAreaStatus.Free);
-    /*Vehicle vehicle = new Vehicle(Long.valueOf(1), user.getUserId(), "AS2334RT");
-    Fine fine = new Fine(user.getUserId(), pa.getPaId(), null, vehicle.getVehicleId(),
-            "Tow away zone",
-            LocalDateTime.parse("2021-08-21 02:13:03"),
-            Integer.valueOf(0),
-            89.90);*/
+
     @BeforeEach
     public void beforeEach() {
         userRepository.deleteAll();

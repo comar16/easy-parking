@@ -398,8 +398,12 @@ public class UserService {
 
 			String frontPhotoName = StringUtils.cleanPath(frontPhoto.getOriginalFilename());
 			String retroPhotoName = StringUtils.cleanPath(retroPhoto.getOriginalFilename());
-			licenseRepository.save(new License(frontPhoto.getBytes(), frontPhotoName, retroPhoto.getBytes(), retroPhotoName));
-			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ErrorResponse(200, "Uploaded successfully files : " + frontPhotoName +  " and " + retroPhotoName));
+		  License license = licenseRepository.save(new License(frontPhoto.getBytes(), frontPhotoName, retroPhoto.getBytes(), retroPhotoName));
+			Driver user = userRepository.findById(getUser().getUserId())
+				.orElseThrow(() -> new IllegalArgumentException("Invalid userId"));
+			user.setLicenseId(license.getLicenseId());
+			userRepository.save(user);
+			return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(200, "Uploaded successfully files : " + frontPhotoName +  " and " + retroPhotoName));
 	}
 
 	/**
