@@ -152,7 +152,7 @@ I tests implementati si suddividono in:
   
 #### Rapporto sull'andamento dei test
 
-I log del successo dei test sono visualizzabili al seguente link: [Tests Result EasyParking](./TestResults-EasyParking.html)
+I log del successo dei test sono visualizzabili al seguente link: [Tests Result EasyParking](./TestResults-EasyParking.pdf)
 ### Ipotetici miglioramenti futuri
 
 Il sistema server side attualmente non predispone di:
