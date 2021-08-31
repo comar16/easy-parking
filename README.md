@@ -30,7 +30,7 @@ Le funzionalità _**pubbliche**_ sono:
    
 Le funzionalità _**utente**_ sono:
  - Cambio password
- - Ricerca delle aree di sosta disponibili, sulla base di svariati filtri che può attribuire quali:
+ - Ricerca delle aree di sosta disponibili, sulla base di svariati filtri che l'utente può attribuire quali:
    - luogo di destinazione
    - funzionalità dell'area di sosta (Car, HandicapCar, ElectricCar, Bus, Camper, Roulette, Motorcycle, LoadingAndUnloadingZone)
    - colorazione delle strisce delle aree di sosta, ognuna con la propria tariffa (White, Blue, Yellow, Pink, Green)
