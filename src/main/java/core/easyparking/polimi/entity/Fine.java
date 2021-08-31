@@ -2,15 +2,14 @@ package core.easyparking.polimi.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import core.easyparking.polimi.utils.object.request.FineRequest;
-import core.easyparking.polimi.utils.object.responce.GetParkingAreaColorResponce;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import static core.easyparking.polimi.utils.object.Regex.*;
+import static core.easyparking.polimi.utils.object.Regex.onlyNumberRegex;
+import static core.easyparking.polimi.utils.object.Regex.totalRegex;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
 
 @Entity

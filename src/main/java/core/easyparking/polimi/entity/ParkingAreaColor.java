@@ -1,13 +1,10 @@
 package core.easyparking.polimi.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import core.easyparking.polimi.utils.object.staticvalues.Color;
 import core.easyparking.polimi.utils.object.responce.GetParkingAreaColorResponce;
+import core.easyparking.polimi.utils.object.staticvalues.Color;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
-
 import static core.easyparking.polimi.utils.object.Regex.*;
 
 @Entity

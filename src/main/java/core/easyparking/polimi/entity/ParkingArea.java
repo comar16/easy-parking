@@ -1,21 +1,17 @@
 package core.easyparking.polimi.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import core.easyparking.polimi.utils.object.staticvalues.Color;
+import core.easyparking.polimi.utils.object.request.ParkingAreaRequest;
 import core.easyparking.polimi.utils.object.staticvalues.Functionality;
 import core.easyparking.polimi.utils.object.staticvalues.ParkingAreaStatus;
 import core.easyparking.polimi.utils.object.staticvalues.Type;
-import core.easyparking.polimi.utils.object.request.ParkingAreaRequest;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-
 import static core.easyparking.polimi.utils.object.Regex.*;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;
-import static org.hibernate.annotations.OnDeleteAction.NO_ACTION;
 
 @Entity
 @Getter

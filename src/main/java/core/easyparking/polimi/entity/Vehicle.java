@@ -2,12 +2,8 @@ package core.easyparking.polimi.entity;
 
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
 import static core.easyparking.polimi.utils.object.Regex.licensePlateRegex;
 import static core.easyparking.polimi.utils.object.Regex.onlyNumberRegex;
 import static org.hibernate.annotations.OnDeleteAction.CASCADE;

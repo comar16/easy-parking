@@ -1,6 +1,5 @@
 package core.easyparking.polimi.utils.object.responce;
 
-import core.easyparking.polimi.entity.ParkingArea;
 import core.easyparking.polimi.entity.ParkingAreaColor;
 import core.easyparking.polimi.utils.object.staticvalues.Color;
 import lombok.AllArgsConstructor;

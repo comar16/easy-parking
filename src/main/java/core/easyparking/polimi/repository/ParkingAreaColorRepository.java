@@ -1,11 +1,9 @@
 package core.easyparking.polimi.repository;
 
 
-import core.easyparking.polimi.entity.ModelVehicle;
 import core.easyparking.polimi.entity.ParkingAreaColor;
 import core.easyparking.polimi.utils.object.staticvalues.Color;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

@@ -3,7 +3,6 @@ package core.easyparking.polimi.entity;
 import core.easyparking.polimi.utils.object.staticvalues.Type;
 import core.easyparking.polimi.utils.object.responce.GetParkingAreaTypeDimensionResponce;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 

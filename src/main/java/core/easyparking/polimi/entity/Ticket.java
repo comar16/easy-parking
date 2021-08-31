@@ -3,7 +3,6 @@ package core.easyparking.polimi.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;

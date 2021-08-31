@@ -29,13 +29,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
 import static core.easyparking.polimi.entity.Vehicle.validateVehicleJsonField;
 import static core.easyparking.polimi.utils.object.request.GetParkingAreaRequest.validateGetParkingAreaJsonBody;
 import static core.easyparking.polimi.utils.object.request.GetTicketRequest.validateGetTicketJsonBody;

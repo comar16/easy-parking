@@ -2,7 +2,6 @@ package core.easyparking.polimi.entity;
 
 import core.easyparking.polimi.utils.object.staticvalues.Functionality;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 

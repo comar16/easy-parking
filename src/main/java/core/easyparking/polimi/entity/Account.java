@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import core.easyparking.polimi.utils.object.staticvalues.Role;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;

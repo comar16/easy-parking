@@ -3,7 +3,6 @@ package core.easyparking.polimi.entity;
 import core.easyparking.polimi.utils.object.staticvalues.Status;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
