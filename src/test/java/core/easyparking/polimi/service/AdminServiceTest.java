@@ -125,22 +125,6 @@ public class AdminServiceTest {
 
     @Test
     @WithMockUser(username = adminUsername, password = defaultPasswordSha3, authorities = {"Admin"})
-    public void getAllParkingAreaColor() {
-        parkingAreaColorRepository.save(pac);
-        ParkingAreaColor pacToGet = parkingAreaColorRepository.findById(pac.getPacId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid userId"));
-        assertTrue(parkingAreaColorRepository.findById(pacToGet.getPacId()).isPresent());
-        GetParkingAreaColorResponce test = new GetParkingAreaColorResponce(pacToGet.getColor(),
-                pacToGet.getHourlyPrice(),
-                pacToGet.getDailyPrice(),
-                pacToGet.getWeeklyPrice(),
-                pacToGet.getMonthlyPrice());
-        GetParkingAreaColorResponce result = adminService.getAllParkingAreaColor().get(adminService.getAllParkingAreaColor().size()-1);
-        assertTrue(EqualsBuilder.reflectionEquals(test.getColor(), result.getColor()));
-    }
-
-    @Test
-    @WithMockUser(username = adminUsername, password = defaultPasswordSha3, authorities = {"Admin"})
     public void createParkingAreaColor() {
         parkingAreaColorRepository.save(pac);
         GetParkingAreaColorResponce test = new GetParkingAreaColorResponce(pac.getColor(),
@@ -176,20 +160,6 @@ public class AdminServiceTest {
         assertTrue(parkingAreaColorRepository.findById(pac.getPacId()).isPresent());
         parkingAreaColorRepository.deleteById(pac.getPacId());
         assertFalse(parkingAreaColorRepository.findById(pac.getPacId()).isPresent());
-    }
-
-    @Test
-    @WithMockUser(username = adminUsername, password = defaultPasswordSha3, authorities = {"Admin"})
-    public void getAllParkingAreaTypeDimension() {
-        parkingAreaTypeDimensionRepository.save(patd);
-        ParkingAreaTypeDimension ptdToGet = parkingAreaTypeDimensionRepository.findById(patd.getPatdId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid userId"));
-        assertTrue(parkingAreaTypeDimensionRepository.findById(ptdToGet.getPatdId()).isPresent());
-        GetParkingAreaTypeDimensionResponce test = new GetParkingAreaTypeDimensionResponce(patd.getType(),
-                patd.getLength(),
-                patd.getWidth());
-        GetParkingAreaTypeDimensionResponce result = adminService.getAllParkingAreaTypeDimension().get(adminService.getAllParkingAreaTypeDimension().size()-1);
-        assertTrue(EqualsBuilder.reflectionEquals(test.getType(), result.getType()));
     }
 
     @Test
@@ -394,5 +364,35 @@ public class AdminServiceTest {
         ParkingArea result = adminService.setPADamaged(pa.getPaId());
         assertTrue(parkingAreaRepository.findById(pa.getPaId()).isPresent());
         assertTrue(EqualsBuilder.reflectionEquals(test, result));
+    }
+
+    @Test
+    @WithMockUser(username = adminUsername, password = defaultPasswordSha3, authorities = {"Admin"})
+    public void getAllParkingAreaTypeDimension() {
+        parkingAreaTypeDimensionRepository.save(patd);
+        ParkingAreaTypeDimension ptdToGet = parkingAreaTypeDimensionRepository.findById(patd.getPatdId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid userId"));
+        assertTrue(parkingAreaTypeDimensionRepository.findById(ptdToGet.getPatdId()).isPresent());
+        GetParkingAreaTypeDimensionResponce test = new GetParkingAreaTypeDimensionResponce(patd.getType(),
+                patd.getLength(),
+                patd.getWidth());
+        GetParkingAreaTypeDimensionResponce result = adminService.getAllParkingAreaTypeDimension().get(adminService.getAllParkingAreaTypeDimension().size()-1);
+        assertTrue(EqualsBuilder.reflectionEquals(test.getType(), result.getType()));
+    }
+
+    @Test
+    @WithMockUser(username = adminUsername, password = defaultPasswordSha3, authorities = {"Admin"})
+    public void getAllParkingAreaColor() {
+        parkingAreaColorRepository.save(pac);
+        ParkingAreaColor pacToGet = parkingAreaColorRepository.findById(pac.getPacId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid userId"));
+        assertTrue(parkingAreaColorRepository.findById(pacToGet.getPacId()).isPresent());
+        GetParkingAreaColorResponce test = new GetParkingAreaColorResponce(pacToGet.getColor(),
+                pacToGet.getHourlyPrice(),
+                pacToGet.getDailyPrice(),
+                pacToGet.getWeeklyPrice(),
+                pacToGet.getMonthlyPrice());
+        GetParkingAreaColorResponce result = adminService.getAllParkingAreaColor().get(adminService.getAllParkingAreaColor().size()-1);
+        assertTrue(EqualsBuilder.reflectionEquals(test.getColor(), result.getColor()));
     }
 }

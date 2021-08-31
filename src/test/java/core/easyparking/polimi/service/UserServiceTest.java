@@ -143,28 +143,6 @@ public class UserServiceTest {
 
     @Test
     @WithMockUser(username = "userservicetest@mail.com", password = defaultPasswordSha3, authorities = {"User"})
-    public void updateMV() {
-
-        Vehicle vehicle = vehicleRepository.save(new Vehicle(mv1.getMvId(), user.getUserId(), "AB123ET"));
-        vehicle.setMvId(mv2.getMvId());
-        vehicle.setUser(user);
-        ModelVehicle modelVehicle = modelVehicleRepository.findByMvId(mv2.getMvId());
-        vehicle.setModelVehicle(modelVehicle);
-        Vehicle vehicleToGet = vehicleRepository.findById(vehicle.getVehicleId())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid vehicleId"));
-        assertTrue(vehicleRepository.findById(vehicleToGet.getVehicleId()).isPresent());
-        AddVehicleResponce test = new AddVehicleResponce(vehicleToGet.getLicensePlate(),
-                modelVehicle,
-                new GetUserResponce(vehicleToGet.getUser().getName(),
-                        vehicleToGet.getUser().getSurname(),
-                        vehicleToGet.getUser().getLicenseId(),
-                        vehicleToGet.getUser().getStatus()));
-        AddVehicleResponce result = userService.updateMV(vehicle.getVehicleId(), mv2.getMvId());
-        assertTrue(EqualsBuilder.reflectionEquals(test.getModelVehicle(), result.getModelVehicle()));
-    }
-
-    @Test
-    @WithMockUser(username = "userservicetest@mail.com", password = defaultPasswordSha3, authorities = {"User"})
     public void getPAFilteredByZ() {
 
         GetParkingAreaRequest parkingArea = new GetParkingAreaRequest(
@@ -375,5 +353,26 @@ public class UserServiceTest {
         assertTrue(EqualsBuilder.reflectionEquals(test.getTotal(), result.getTotal()));
     }
 
+    @Test
+    @WithMockUser(username = "userservicetest@mail.com", password = defaultPasswordSha3, authorities = {"User"})
+    public void updateMV() {
+
+        Vehicle vehicle = vehicleRepository.save(new Vehicle(mv1.getMvId(), user.getUserId(), "AB123ET"));
+        vehicle.setMvId(mv2.getMvId());
+        vehicle.setUser(user);
+        ModelVehicle modelVehicle = modelVehicleRepository.findByMvId(mv2.getMvId());
+        vehicle.setModelVehicle(modelVehicle);
+        Vehicle vehicleToGet = vehicleRepository.findById(vehicle.getVehicleId())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid vehicleId"));
+        assertTrue(vehicleRepository.findById(vehicleToGet.getVehicleId()).isPresent());
+        AddVehicleResponce test = new AddVehicleResponce(vehicleToGet.getLicensePlate(),
+                modelVehicle,
+                new GetUserResponce(vehicleToGet.getUser().getName(),
+                        vehicleToGet.getUser().getSurname(),
+                        vehicleToGet.getUser().getLicenseId(),
+                        vehicleToGet.getUser().getStatus()));
+        AddVehicleResponce result = userService.updateMV(vehicle.getVehicleId(), mv2.getMvId());
+        assertTrue(EqualsBuilder.reflectionEquals(test.getModelVehicle(), result.getModelVehicle()));
+    }
 
 }

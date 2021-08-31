@@ -3,11 +3,11 @@
 ### Introduzione
 Il seguente progetto presenta lo sviluppo di un’applicazione server side pensata per la corretta gestione interna
 delle zone di parcheggio nelle aree urbane.
-Nel dettaglio, consente la prenotazione a distanza di un posteggio per veicoli di diversa natura,
+Nel dettaglio, verte sulla prenotazione a distanza di un posteggio per veicoli di diversa natura,
 negli spazi riservati a tale scopo. Al fine di comprenderne meglio l’utilità, si riportano di seguito,
 alcune delle sue funzionalità.
 Previa registrazione dell’utente, consente l’individuazione delle aree di parcheggio all’interno di
-una determinata città con semplice indicazione della disponibilità di un posto auto. Individuato il
+una specifica città con semplice indicazione della disponibilità di un posto auto. Individuato il
 posteggio, per la sua prenotazione, si procede con il pagamento digitale del ticket, la cui tariffa viene
 determinata in base alla colorazione delle strisce e al tempo che si desidera sostare.
 La corretta esecuzione di tale procedimento permette, inoltre, una più efficace amministrazione delle
@@ -18,17 +18,17 @@ i tempi, nonché, grazie al sostegno della digitalizzazione, si presta come vali
 municipali incaricate della conduzione del traffico urbano.
 
 ### Analisi dei requisiti e funzionalità
-Le funzionalità che si pone si suddividono in 3 categorie:
+Le sue funzionalità che si suddividono in 3 categorie:
  - _**Pubbliche**_
  - _**Utente**_
  - _**Amministratore**_
 
-Le funzionalità _**pubbliche**_ comprendono:
- - La login sia di un utente che di un amministratore per effettuare l'accesso al proprio account, alle proprie informazioni e a tutti i servizi
- - La Sign up in cui ogni utente non registrato può farlo inserendo tutti i dati richiesti (nome, cognome, email, password)
- - La Forgot Password, che permette sia all’utente che all'amministratore di ricevere una nuova password nel caso in cui l’avesse dimenticata
+Le funzionalità _**pubbliche**_ sono:
+ - La login sia di un utente che di un amministratore, necessaria per effettuare l'accesso al proprio account e alla propria area riservata (dati personali, informazioni e servizi)
+ - La sign up per fornire l'interfaccia con utenti non ancora registrati/autenticati mediante compilazione dei propri dati (nome, cognome, email e password)
+ - La Forgot Password, che in caso di dimenticanza della stessa, sia l’utente, sia l'amministratore ne ricevono in modo immediato una nuova
    
-Le funzionalità _**utente**_ comprendono:
+Le funzionalità _**utente**_ sono:
  - Cambio password
  - Ricerca delle aree di sosta disponibili, sulla base di svariati filtri che può attribuire quali:
    - luogo di destinazione
@@ -41,17 +41,17 @@ Le funzionalità _**utente**_ comprendono:
  - Aggiunta di veicoli
  - Visualizzazione di:
    - Profilo utente
-   - Tutti i veicoli inseriti e che, potranno essere scelti per semplificare la ricerca
-   - Tutti i modelli di veicoli, che saranno attribuiti al veicolo al momento della creazione per ricavarne le  dimensioni 
+   - Tutti i veicoli inseriti e che potranno essere scelti per semplificare la ricerca
+   - Tutti i modelli di veicolo, che saranno attribuiti all'aggiunta di un veicolo in modo tale da conoscerne le dimensioni 
    - Tutte le colorazioni delle strisce e le relative tariffe orarie/giornaliere/settimanali/mensili
    - Tutti i tipi e le dimensioni delle aree di sosta
    - Tutti i ticket generati
-   - Tutti le multe (pagate/non pagate)
+   - Tutte le multe (pagate/non pagate)
  - Generazione di un ticket con relativa prenotazione dell'area di sosta
  - Pagamento dei ticket
  - Pagamento di eventuali multe
  
-Le funzionalità _**amministratore**_ (Membro della Polizia Locale) comprendono:
+Le funzionalità _**amministratore**_ (Membro della Polizia Locale) sono:
   - Caricamento d'immagini del proprio tesserino
   - Download delle immagini del proprio tesserino
   - Inserimento/aggiornamento/rimozione di una colorazione di strisce
@@ -71,26 +71,26 @@ Le funzionalità _**amministratore**_ (Membro della Polizia Locale) comprendono:
 ### API e Documentazione Swagger
 
 Sono state sviluppate svariate API, affinché tutte le funzionalità fossero implementate.
-La documentazione delle stesse si trova al seguente link: [Documentazione EasyParking Swagger](https://app.swaggerhub.com/apis/comar_16/EasyParking/1.0.0)
+É possibile visualizzare la loro documentazione al seguente link: [Documentazione EasyParking Swagger](https://app.swaggerhub.com/apis/comar_16/EasyParking/1.0.0)
 
 
 ### Schema ER DataBase
-Il servizio di database scelto per EasyParking è MySql, che permette di gestire un database relazionale.
-Il Database realizzato è composto dalle seguenti tabelle, per il raggiungimento di determinati obiettivi:
+Il servizio di database scelto per EasyParking è MySql, il quale permette la gestione di un database relazionale.
+Quello in questione è composto dalle seguenti tabelle:
 
- - Account : tutte le informazioni riguardante ogni singolo account tra cui credenziali, ruolo (User/Admin) ed eventuali dati di reset password
- - User : tutte le informazioni riguardante ogni singolo utente tra cui anagrafica e stato (Approved, Rejected, Pending)
- - License : tutte le informazioni sulla patente inserita dall'utente
- - Admin : tutte le informazioni riguardante ogni singolo amministratore tra cui anagrafica e stato (Approved, Rejected, Pending)
- - PoliceCard : tutte le informazioni sul tesserino delle forze dell'ordine
- - Ticket : tutte le informazioni sui ticket generati tra cui prezzo totale e scadenza
- - Fine : tutte le informazioni sulle multe tra cui punti da rimuovere, prezzo totale e scadenza
- - PaymentInfo : tutte le informazioni sui pagamenti
- - ParkingArea : tutte le informazioni sulle aree di sosta tra cui colorazione strisce, dimensione, tipo e stato (Free, Busy, Damaged, Deleted) 
- - ParkingAreaColor : tutte le informazioni sulla colorazione delle strisce e le relative tariffe
- - ParkingAreaTypeDimension : tutte le informazioni su dimensioni e tipi delle aree di sosta
- - Vehicle : tutte le informazioni sui veicoli inseriti dall'utente e relativa targa
- - ModelVehicle : tutte le informazioni sui vari modelli di veicoli disponibili
+ - Account: tutte le informazioni riguardante ogni singolo account tra cui credenziali, ruolo (User/Admin) ed eventuali dati di reset password
+ - User: tutte le informazioni riguardante ogni singolo utente tra cui anagrafica e stato (Approved, Rejected, Pending)
+ - License: tutte le informazioni sulla patente inserita dall'utente
+ - Admin: tutte le informazioni riguardante ogni singolo amministratore tra cui anagrafica e stato (Approved, Rejected, Pending)
+ - PoliceCard: tutte le informazioni sul tesserino delle forze dell'ordine
+ - Ticket: tutte le informazioni sui ticket generati tra cui prezzo totale e scadenza
+ - Fine: tutte le informazioni sulle multe tra cui punti da rimuovere, prezzo totale e scadenza
+ - PaymentInfo: tutte le informazioni sui pagamenti
+ - ParkingArea: tutte le informazioni sulle aree di sosta tra cui colorazione strisce, dimensione, tipo e stato (Free, Busy, Damaged, Deleted) 
+ - ParkingAreaColor: tutte le informazioni sulla colorazione delle strisce e le relative tariffe
+ - ParkingAreaTypeDimension: tutte le informazioni su dimensioni e tipi delle aree di sosta
+ - Vehicle: tutte le informazioni sui veicoli inseriti dall'utente e relativa targa
+ - ModelVehicle: tutte le informazioni sui vari modelli di veicoli disponibili
  
 
 ![ER Database Diagram](./EasyParkingDB.png)
