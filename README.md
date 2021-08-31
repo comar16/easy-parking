@@ -71,7 +71,7 @@ Le funzionalità _**amministratore**_ (Membro della Polizia Locale) sono:
 ### API e Documentazione Swagger
 
 Sono state sviluppate svariate API, affinché tutte le funzionalità vengano implementate.
-É possibile visualizzare la loro documentazione al seguente link: [Documentazione EasyParking Swagger](https://app.swaggerhub.com/apis/comar_16/EasyParking/1.0.0)
+É possibile visualizzare la loro documentazione al seguente link: [Documentazione Swagger EasyParking](https://app.swaggerhub.com/apis/comar_16/EasyParking/1.0.0)
 
 
 ### Schema ER DataBase
@@ -152,7 +152,7 @@ I tests implementati si articolano in:
   
 #### Rapporto sull'andamento dei test
 
-I log del successo dei test sono visualizzabili al seguente link: [Tests Result EasyParking](./TestResults-EasyParking.pdf)
+I log del successo dei test sono visualizzabili al seguente link: [Risultati Tests EasyParking](./TestResults-EasyParking.pdf)
 
 ### Ipotetici miglioramenti futuri
 
