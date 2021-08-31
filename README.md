@@ -141,7 +141,7 @@ e messaggi di risposta tra i vari componenti dell’intero sistema, nei seguenti
 
 I tests implementati si articolano in:
 
-* Test per i Service: per controllare le operazioni svolte dai vari metodi
+* Test per i Services: per controllare le operazioni svolte dai vari metodi
     * Test per le operazioni pubbliche
     * Test per le operazioni dell'utente
     * Test per le operazioni dell'amministratore
