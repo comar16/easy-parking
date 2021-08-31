@@ -139,13 +139,13 @@ e messaggi di risposta tra i vari componenti dell’intero sistema, nei seguenti
 
 ### Piano di Testing
 
-I tests implementati si suddividono in:
+I tests implementati si articolano in:
 
-* Test per i Service: per verificate la correttezza delle operazioni svolte dai vari metodi
+* Test per i Service: per controllare le operazioni svolte dai vari metodi
     * Test per le operazioni pubbliche
     * Test per le operazioni dell'utente
     * Test per le operazioni dell'amministratore
-* Test per i Controllers: per verificare la correttezza degli end points e dello status code restituito
+* Test per i Controllers: per verificare gli end points e lo status code restituito
     * Test per il Controller pubblico
     * Test per il Controller utente
     * Test per il Controller amministratore
@@ -161,4 +161,4 @@ Il sistema server side attualmente non predispone di:
 - una gestione di suddivisione tariffaria Comunale
 - la creazione di nuovi amministratori (membri della polizia locale) approvati dagli stessi
 
-Queste migliorie potrebbero essere apportate per avere un’esperienza utente migliore.
+Le funzioni sopra elencate fungono da possibili migliorie realizzabili per il perfezionamento dell’esperienza utente.
