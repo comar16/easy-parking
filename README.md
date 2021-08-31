@@ -33,20 +33,20 @@ Le funzionalità _**utente**_ sono:
  - Ricerca delle aree di sosta disponibili, sulla base di svariati filtri che l'utente può attribuire quali:
    - luogo di destinazione
    - funzionalità dell'area di sosta (Car, HandicapCar, ElectricCar, Bus, Camper, Roulette, Motorcycle, LoadingAndUnloadingZone)
-   - colorazione delle strisce delle aree di sosta, ognuna con la propria tariffa (White, Blue, Yellow, Pink, Green)
-   - dimensione e tipo dell'area di sosta (Nastro, Spina, Pettine)
+   - colorazione delle strisce delle aree di sosta (White, Blue, Yellow, Pink, Green) ognuna con una tariffa ben precisa
+   - dimensione e tipologia della zona di posteggio (Nastro, Spina, Pettine)
    - veicolo da parcheggiare
  - Caricamento d'immagini della propria patente
  - Download delle immagini della propria patente
  - Aggiunta di veicoli
  - Visualizzazione di:
    - Profilo utente
-   - Tutti i veicoli inseriti e che potranno essere scelti per semplificare la ricerca
-   - Tutti i modelli di veicolo, che saranno attribuiti all'aggiunta di un veicolo in modo tale da conoscerne le dimensioni 
-   - Tutte le colorazioni delle strisce e le relative tariffe orarie/giornaliere/settimanali/mensili
-   - Tutti i tipi e le dimensioni delle aree di sosta
-   - Tutti i ticket generati
-   - Tutte le multe (pagate/non pagate)
+   - Veicoli aggiunti che possono essere scelti per semplificare la ricerca
+   - Modelli di veicolo, che saranno attribuiti all'aggiunta di un veicolo in modo tale da conoscerne le dimensioni 
+   - Le colorazioni delle strisce e le relative tariffe orarie/giornaliere/settimanali/mensili
+   - Le tipologie e le dimensioni delle aree riservate ai parcheggi
+   - Ticket generati
+   - Eventuali multe (pagate/non pagate)
  - Generazione di un ticket con relativa prenotazione dell'area di sosta
  - Pagamento dei ticket
  - Pagamento di eventuali multe
@@ -61,16 +61,16 @@ Le funzionalità _**amministratore**_ (Membro della Polizia Locale) sono:
   - Inserimento/aggiornamento di multe
   - Visualizzazione di:
     - Profilo amministratore
-    - Lista degli utenti
-    - Lista degli amministratori
-    - Lista delle multe di un certo utente
-    - Tutte le aree di sosta
-    - Tutti le colorazioni di strisce delle aree di sosta
-    - Tutti i tipi e le dimensioni delle aree di sosta
+    - Utenti
+    - Amministratori
+    - Multe di un certo utente
+    - Aree di sosta
+    - Colorazioni di strisce delle aree di sosta
+    - Tipologie e dimensioni delle aree di sosta
 
 ### API e Documentazione Swagger
 
-Sono state sviluppate svariate API, affinché tutte le funzionalità fossero implementate.
+Sono state sviluppate svariate API, affinché tutte le funzionalità vengano implementate.
 É possibile visualizzare la loro documentazione al seguente link: [Documentazione EasyParking Swagger](https://app.swaggerhub.com/apis/comar_16/EasyParking/1.0.0)
 
 
@@ -97,8 +97,8 @@ Quello in questione è composto dalle seguenti tabelle:
 
 
 ### Use Case Diagram
-Sono stati creati degli Use Case Diagram disponibili in ./UseCaseDiagram/ nei formati .puml e .png. Questi,
-descrivono le funzioni o servizi offerti dal sistema, così come sono percepiti e utilizzati dagli attori che interagiscono col sistema stesso,
+Sulla base delle funzionalità descritte precedentemente sono stati creati degli Use Case Diagram disponibili in ./UseCaseDiagram/ nei formati .puml e .png, i quali
+descrivono le funzioni o servizi offerti dal sistema, così come sono percepiti e utilizzati dagli attori che interagiscono col sistema stesso
 nei seguenti 3 casi d’uso:
 
 - Funzionalità pubbliche
@@ -113,8 +113,8 @@ nei seguenti 3 casi d’uso:
 
 ### Sequence Diagram
 Sono stati creati dei Sequence Diagram disponibili in ./SequenceDiagram/ nei formati .puml e .png. Questi, descrivono la successione di operazioni
-e messaggi di risposta tra i vari componenti dell’intero sistema, nei seguenti 3 casi
-d’uso:
+e messaggi di risposta tra i vari componenti dell’intero sistema, nei seguenti 3 casi d’uso:
+
  - Login
  - Aggiunta veicolo
  - Pagamento multa
@@ -153,6 +153,7 @@ I tests implementati si suddividono in:
 #### Rapporto sull'andamento dei test
 
 I log del successo dei test sono visualizzabili al seguente link: [Tests Result EasyParking](./TestResults-EasyParking.pdf)
+
 ### Ipotetici miglioramenti futuri
 
 Il sistema server side attualmente non predispone di:
