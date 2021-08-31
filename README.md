@@ -18,7 +18,7 @@ i tempi, nonché, grazie al sostegno della digitalizzazione, si presta come vali
 municipali incaricate della conduzione del traffico urbano.
 
 ### Analisi dei requisiti e funzionalità
-Le sue funzionalità che si suddividono in 3 categorie:
+Le sue funzionalità si suddividono in 3 categorie:
  - _**Pubbliche**_
  - _**Utente**_
  - _**Amministratore**_
